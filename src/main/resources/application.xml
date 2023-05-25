@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="addressTask1" class="com.example.spring.entity.Address">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="street" value="Batova"/>
+        <constructor-arg name="home" value="29"/>
+    </bean>
+
+    <bean name="userTask1" class="com.example.spring.entity.User">
+        <property name="name" value="Matvey"/>
+        <property name="login" value="testlogin1"/>
+        <property name="password" value="testpassword1"/>
+        <property name="address" ref="addressTask1"/>
+    </bean>
+
+    <bean class="com.example.spring.entity.bean.InitBean"/>
+    <bean class="com.example.spring.entity.bean.DestroyBean"/>
+    <bean name="userTask2" class="com.example.spring.entity.User" factory-method="getUser">
+        <constructor-arg name="login" value="testlogin2"/>
+    </bean>
+
+    <bean name="userTask3" class="com.example.spring.entity.User"
+          p:id="1" p:name="Ihor" p:login="nontest" p:password="nonpassword"/>
+
+    <bean name="collectionsTask4" class="com.example.spring.entity.Collections">
+        <property name="list">
+            <list>
+                <value>Belarus</value>
+                <value>Ukraine</value>
+                <value>USA</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>Google</value>
+                <value>Mazila</value>
+                <value>Opera</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="USA" value="1"/>
+                <entry key="Ukraine" value="2"/>
+                <entry key="Belarus" value="3"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="name">Maks</prop>
+                <prop key="login">Maks123</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean name="userTask5" class="com.example.spring.entity.User">
+        <constructor-arg name="id">
+            <null/>
+        </constructor-arg>
+        <constructor-arg name="name" value="Michail"/>
+        <constructor-arg name="login">
+            <null/>
+        </constructor-arg>
+        <constructor-arg name="password">
+            <null/>
+        </constructor-arg>
+        <constructor-arg name="address">
+            <null/>
+        </constructor-arg>
+    </bean>
+
+    <bean  id="tax" name="taxTask6" class="com.example.spring.entity.Tax">
+        <property name="income" value="#{183.37}"/>
+        <property name="pension" value="#{97.70}"/>
+        <property name="total" value="#{183.37 + 97.70}"/>
+        <property name="isNormal" value="#{(tax.total lt(250.0)) }"/>
+    </bean>
+</beans>
